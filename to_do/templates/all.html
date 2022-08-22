@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+
+      <ol>
+        {% for task in t %}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">{{task.task}}</div>
+            &nbsp;&nbsp;&nbsp;Due on: {{task.due_datetime}}
+            <a href="{% url 'delete' task.pk %}"><button>Delete</button></a>
+        </div>
+        {% if n.date > task.due_datetime.date %}
+          <span class="badge bg-primary rounded-pill">Task Expired : {{task.due_datetime | naturaltime }}</span>
+        {% elif n.date < task.due_datetime.date %}
+          <span class="badge bg-primary rounded-pill">Time Left : {{task.due_datetime | naturaltime }}</span>
+        {% else %}
+          {% if n.time > task.due_datetime.time %}
+          <span class="badge bg-primary rounded-pill">Task Expired : {{task.due_datetime | naturaltime }}</span>
+          {% endif %}
+        {% endif %}
+
+
+
+
+        
+        
+        <!-- {% if n.date > task.due_datetime.date %}
+            {% if n.time > task.due_datetime.time %}
+              <span class="badge bg-primary rounded-pill">Task Expired : {{task.due_datetime | naturaltime }}</span>
+            {% endif %}
+        {% else %}
+          <span class="badge bg-primary rounded-pill">Time Left : {{task.due_datetime | naturaltime }}</span>
+        {% endif %}-->
+      </li> 
+      {% endfor %}
+    </ol>
+{% endblock %}
+    

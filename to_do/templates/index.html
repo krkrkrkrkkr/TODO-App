@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+
+      <ol>
+        {% for task in t %}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">{{task.task}}</div>
+            &nbsp;&nbsp;&nbsp;Due on: {{task.due_datetime}}
+            <a  href="{% url 'is_completed' task.pk %}"><button>Completed</button></a>
+        </div>
+          <span class="badge bg-primary rounded-pill">Time Left : {{task.due_datetime | naturaltime }}</span>
+          
+        </li>
+      {% endfor %}
+    </ol>
+{% endblock %}
+    
